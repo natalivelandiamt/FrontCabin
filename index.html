@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<title>Alquiler de Cabañas</title>
+</head>
+
+<body>
+	<nav class="navbar bg-light">
+		<div class="container-fluid">
+			<span class="navbar-brand mb-0 h1">Alquiler de Cabañas</span>
+		</div>
+	</nav>
+	<div class="container-md">
+		<ul class="nav nav-tabs justify-content-center">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="cabin-tab" data-bs-toggle="tab" data-bs-target="#cabin-tab-pane"
+					type="button" role="tab" aria-controls="cabin-tab-pane" aria-selected="true">Cabañas</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="client-tab" data-bs-toggle="tab" data-bs-target="#client-tab-pane"
+					type="button" role="tab" aria-controls="client-tab-pane" aria-selected="true">Clientes</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages-tab-pane"
+					type="button" role="tab" aria-controls="messages-tab-pane" aria-selected="true">Mensajes</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="category-tab" data-bs-toggle="tab" data-bs-target="#category-tab-pane"
+					type="button" role="tab" aria-controls="category-tab-pane" aria-selected="true">Categorias</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="reservation-tab" data-bs-toggle="tab"
+					data-bs-target="#reservation-tab-pane" type="button" role="tab" aria-controls="reservation-tab-pane"
+					aria-selected="true">Reservaciones</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-tab-pane"
+					type="button" role="tab" aria-controls="admin-tab-pane" aria-selected="true">Admins</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="conteoReservas-tab" data-bs-toggle="tab"
+					data-bs-target="#conteoReservas-tab-pane" type="button" role="tab"
+					aria-controls="conteoReservas-tab-pane" aria-selected="true"
+					onclick="openReport()">Reportes</button>
+			</li>
+		</ul>
+
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="cabin-tab-pane" role="tabpanel" aria-labelledby="cabin-tab"
+				tabindex="0">
+				<table id="cabin" class="table table-striped table-dark table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Brand</th>
+							<th>Rooms</th>
+							<th>Category_id</th>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody id="cuerpoTablaCabins">
+					</tbody>
+				</table>
+				<div class="row justify-content-center">
+					<div class="col-2">
+						<button type="button" class="btn btn-outline-success" onclick="openPopupCabinCreate()">Agregar
+							Cabaña</button>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="client-tab-pane" role="tabpanel" aria-labelledby="client-tab" tabindex="0">
+				<table id="client" class="table table-striped table-dark table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Age</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody id="cuerpoTablaClients">
+					</tbody>
+				</table>
+				<div class="row justify-content-center">
+					<div class="col-2">
+						<button type="button" class="btn btn-outline-success" onclick="openPopupClientCreate()">Agregar
+							Cliente</button>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="messages-tab-pane" role="tabpanel" aria-labelledby="messages-tab"
+				tabindex="0">
+				<table id="messages" class="table table-striped table-dark table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Client</th>
+							<th>Cabin</th>
+							<th>Message Text</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody id="cuerpoTablaMessages">
+					</tbody>
+				</table>
+				<div class="row justify-content-center">
+					<div class="col-2">
+						<button type="button" class="btn btn-outline-success" onclick="openPopupMessageCreate()">Agregar
+							Mensaje</button>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="category-tab-pane" role="tabpanel" aria-labelledby="category-tab"
+				tabindex="0">
+				<table id="categories" class="table table-striped table-dark table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody id="cuerpoTablaCategories">
+					</tbody>
+				</table>
+				<div class="row justify-content-center">
+					<div class="col-2">
+						<button type="button" class="btn btn-outline-success"
+							onclick="openPopupCategoryCreate()">Agregar Categoria</button>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="reservation-tab-pane" role="tabpanel" aria-labelledby="reservation-tab"
+				tabindex="0">
+				<table id="reservation" class="table table-striped table-dark table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Client</th>
+							<th>Cabin</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>Calificacion</th>
+							<th>Status</th>
+							<th>Calificar</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody id="cuerpoTablaReservations">
+					</tbody>
+				</table>
+				<div class="row justify-content-center">
+					<div class="col-2">
+						<button type="button" class="btn btn-outline-success"
+							onclick="openPopupReservationCreate()">Agregar Reservación</button>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="admin-tab-pane" role="tabpanel" aria-labelledby="admin-tab" tabindex="0">
+				<table id="admin" class="table table-striped table-dark table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody id="cuerpoTablaAdmins">
+					</tbody>
+				</table>
+				<div class="row justify-content-center">
+					<div class="col-2">
+						<button type="button" class="btn btn-outline-success" onclick="openPopupAdminCreate()">Agregar
+							Admin</button>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="conteoReservas-tab-pane" role="tabpanel" aria-labelledby="conteoReservas-tab"
+				tabindex="0">
+				<div class="container" id="reportSection">
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<h2>Consulta de reservas en intervalo de tiempo</h2>
+							<p>Ingrese la fecha inicial y final para observar las reservas realizadas en el periodo de
+								tiempo ingresado.</p>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-4">
+							<div class="input-group input-group-sm mb-3">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Inicio</span>
+								<input type="text" class="form-control" aria-label="Sizing example input"
+									aria-describedby="inputGroup-sizing-sm" id="conteoReservasDatepicker_start">
+							</div>
+							<div class="input-group input-group-sm mb-3">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Fin</span>
+								<input type="text" class="form-control" aria-label="Sizing example input"
+									aria-describedby="inputGroup-sizing-sm" id="conteoReservasDatepicker_end">
+							</div>
+							<div class="col-2">
+								<button type="button" class="btn btn-outline-success"
+									onclick="consultarConteoReservas()">Buscar
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<table id="conteoReservasReservation" class="table table-striped table-dark table-hover">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Client</th>
+										<th>Cabin</th>
+										<th>Start Date</th>
+										<th>End Date</th>
+										<th>Calificacion</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody id="cuerpoTablaConteoReservasReservations">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="container" id="reportSection">
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<h2>Conteo total de reservas completadas y canceladas</h2>
+							<p>Se muestra el conteo total de reservas completadas y canceladas </p>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-3">
+							<div class="text-bg-success p-2"> Reservas Completadas <span class="badge text-bg-secondary"
+									id="reporteReservasCompletadas"></span></div>
+						</div>
+						<div class="col-3">
+							<div class="text-bg-warning p-2"> Reservas Canceladas <span class="badge text-bg-secondary"
+									id="reporteReservasCanceladas"></span></div>
+						</div>
+					</div>
+				</div>
+				<div class="container" id="reportSection">
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<h2>Conteo total de reservas completadas y canceladas</h2>
+							<p>Se muestra el conteo total de reservas completadas y canceladas </p>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+					<div class="col-8">
+						<table id="reportTopClientes" class="table table-striped table-dark table-hover">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Número de reservaciones</th>
+								</tr>
+							</thead>
+							<tbody id="cuerpoTablaTopClients">
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+
+		<div class="popup" id="popupCabinEdit">
+			<div class="row justify-content-center">
+				<h2>Cabin</h2>
+			</div>
+			<div class="row justify-content-left">
+				<label for="editIdCabin">ID: </label>
+				<input type="text" id="editIdCabin" name="editIdCabin" class="form-control" readonly>
+			</div>
+			<div class="row justify-content-left">
+				<label for="editBrandCabin">Brand: </label>
+				<input type="text" id="editBrandCabin" name="editBrandCabin" class="form-control">
+			</div>
+
+			<div class="row justify-content-left">
+				<label for="editRoomsCabin">Rooms: </label>
+				<input type="text" id="editRoomsCabin" name="editRoomsCabin" class="form-control">
+			</div>
+			<div class="row justify-content-left" style="visibility: hidden; display: none;">
+				<label for="editCategoryIdCabin">Category: </label>
+				<input type="number" id="editCategoryIdCabin" name="editCategoryIdCabin" class="form-control"
+					readonly></select>
+			</div>
+			<div class="row justify-content-left">
+				<label for="editNameCabin">Name: </label>
+				<input type="text" id="editNameCabin" name="editNameCabin" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label class="form-label" for="editDescriptionCabin">Description: </label>
+				<input type="text" id="editDescriptionCabin" name="editDescriptionCabin" class="form-control">
+			</div>
+			<button type="button" class="updateButton" onclick="updateCabin()">Update Cabin</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupCabinEdit')">Cancel</button>
+		</div>
+
+		<div class="popup" id="popupCabinCreate">
+			<div class="row justify-content-center">
+				<h2>Cabin</h2>
+			</div>
+			<form id="cabinCreation">
+				<div class="row justify-content-left">
+					<label class="form-label" for="createBrandCabin">Brand: </label>
+					<input type="text" id="createBrandCabin" name="createBrandCabin" class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createRoomsCabin">Rooms: </label>
+					<input type="text" id="createRoomsCabin" name="createRoomsCabin" class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createCategoryIdCabin">Categoría: </label>
+					<select id="createCategoryIdCabin" name="createCategoryIdCabin" class="form-select"></select>
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createNameCabin">Name: </label>
+					<input type="text" id="createNameCabin" name="createNameCabin" class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createDescriptionCabin">Description: </label>
+					<input type="text" id="createDescriptionCabin" name="createDescriptionCabin" class="form-control">
+				</div>
+				<button class="btn btn-primary createButton" type="submit" onclick="crearCabin()">Crear</button>
+				<button class="btn btn-primary cancelButton" onclick="closePopup('popupCabinCreate')">Cancel</button>
+			</form>
+		</div>
+
+		<div class="popup" id="popupClientEdit">
+			<div class="row justify-content-center">
+				<h2>Client</h2>
+			</div>
+			<div class="row justify-content-left" style="visibility: hidden; display: none;">
+				<label for="editIdClient">ID: </label>
+				<input type="text" id="editIdClient" name="editIdClient" class="form-control" readonly>
+			</div>
+			<div class="row justify-content-left">
+				<label for="editNameClient">Name: </label>
+				<input type="text" id="editNameClient" name="editNameClient" class="form-control">
+			</div>
+			<div class="row justify-content-left" style="visibility: hidden; display: none;">
+				<label for="editEmailClient">Email: </label>
+				<input type="text" id="editEmailClient" name="editEmailClient" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="editPasswordClient">Password: </label>
+				<input type="text" id="editPasswordClient" name="editPasswordClient" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="editAgeClient">Age: </label>
+				<input type="text" id="editAgeClient" name="editAgeClient" class="form-control">
+			</div>
+
+			<button type="button" class="updateButton" onclick="updateClient()">Update Client</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupClientEdit')">Cancel</button>
+
+		</div>
+
+		<div class="popup" id="popupClientCreate">
+			<div class="row justify-content-center">
+				<h2>Client</h2>
+			</div>
+			<div class="row justify-content-left">
+				<label for="createNameClient">Name: </label>
+				<input type="text" id="createNameClient" name="createNameClient" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="createEmailClient">Email: </label>
+				<input type="text" id="createEmailClient" name="createEmailClient" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="createAgeClient">Age: </label>
+				<input type="text" id="createAgeClient" name="createAgeClient" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="createPasswordClient">Password: </label>
+				<input type="text" id="createPasswordClient" name="createPasswordClient" class="form-control">
+			</div>
+			<button type="button" class="createButton" onclick="crearClient()">Create</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupClientCreate')">Cancel</button>
+		</div>
+
+		<div class="popup" id="popupMessageEdit">
+			<div class="row justify-content-center">
+				<h2>Message</h2>
+			</div>
+			<div class="row justify-content-left">
+				<label for="editIdMessage">ID: </label>
+				<input type="text" id="editIdMessage" name="editIdMessage" class="form-control" readonly>
+			</div>
+			<div class="row justify-content-left">
+				<label for="editMessageText">Text Message: </label>
+				<input type="text" id="editMessageText" name="editMessageText" class="form-control">
+			</div>
+			<button type="button" class="updateButton" onclick="updateMessage()">Update Message</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupMessageEdit')">Cancel</button>
+		</div>
+
+		<div class="popup" id="popupMessageCreate">
+			<div class="row justify-content-center">
+				<h2>Message</h2>
+			</div>
+			<div class="row justify-content-left">
+				<label class="form-label" for="createClientMessage">Cliente: </label>
+				<select id="createClientMessage" name="createClientMessage" class="form-select"></select>
+			</div>
+			<div class="row justify-content-left">
+				<label class="form-label" for="createCabinMessage">Cabaña: </label>
+				<select id="createCabinMessage" name="createCabinMessage" class="form-select"></select>
+			</div>
+			<div class="row justify-content-left">
+				<label for="createMessageText">Text Message: </label>
+				<input type="text" id="createMessageText" name="createMessageText" class="form-control">
+			</div>
+			<button type="button" class="createButton" onclick="crearMessage()">Create</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupMessageCreate')">Cancel</button>
+		</div>
+		<div class="popup" id="popupCategoryCreate">
+			<div class="row justify-content-center">
+				<h2>Category</h2>
+			</div>
+			<div class="row justify-content-left">
+				<label for="createCategoryName">Name: </label>
+				<input type="text" id="createCategoryText" name="createCategoryText" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="createCategoryDescription">Description: </label>
+				<input type="text" id="createCategoryDescription" name="createCategoryDescription" class="form-control">
+			</div>
+			<button type="button" class="createButton" onclick="crearCategory()">Create</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupCategoryCreate')">Cancel</button>
+		</div>
+		<div class="popup" id="popupCategoryEdit">
+			<div class="row justify-content-center">
+				<h2>Category</h2>
+			</div>
+			<div class="row justify-content-left" style="visibility: hidden; display: none;">
+				<label for="updateCategoryId">Id: </label>
+				<input type="text" id="updateCategoryId" name="updateCategoryId" class="form-control" readonly="true">
+			</div>
+			<div class="row justify-content-left">
+				<label for="updateCategoryName">Name: </label>
+				<input type="text" id="updateCategoryText" name="updateCategoryText" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="updateCategoryDescription">Description: </label>
+				<input type="text" id="updateCategoryDescription" name="updateCategoryDescription" class="form-control">
+			</div>
+			<button type="button" class="createButton" onclick="updateCategory()">Update</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupCategoryEdit')">Cancel</button>
+		</div>
+		<div class="popup" id="popupReservationCreate">
+			<div class="row justify-content-center">
+				<h2>Reservation</h2>
+			</div>
+			<form id="reservationCreation">
+				<div class="row justify-content-left">
+					<label class="form-label" for="createClientReservation">Client: </label>
+					<select id="createClientReservation" name="createClientReservation" class="form-select"></select>
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createCabinReservation">Cabin: </label>
+					<select id="createCabinReservation" name="createCabinReservation" class="form-select"></select>
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createStartDateReservation">Start Date: </label>
+					<input type="text" id="createStartDateReservation" name="createStartDateReservation"
+						class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createDevolutionDateReservation">Devolution Date: </label>
+					<input type="text" id="createDevolutionDateReservation" name="createDevolutionDateReservation"
+						class="form-control">
+				</div>
+				<button class="btn btn-primary createButton" type="submit" onclick="crearReservation()">Crear</button>
+				<button class="btn btn-primary cancelButton" onclick="closePopup('popupCabinCreate')">Cancel</button>
+			</form>
+		</div>
+
+
+
+		<div class="popup" id="popupReservationEdit">
+			<div class="row justify-content-center">
+				<h2>Reservation</h2>
+			</div>
+			<form id="reservationCreation">
+				<div class="row justify-content-left">
+					<label class="form-label" for="editIdReservation">Id: </label>
+					<input type="text" id="editIdReservation" name="editIdReservation" class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="editStartDateReservation">Start Date: </label>
+					<input type="text" id="editStartDateReservation" name="editStartDateReservation"
+						class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="editDevolutionDateReservation">Devolution Date: </label>
+					<input type="text" id="editDevolutionDateReservation" name="editDevolutionDateReservation"
+						class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="editStatusReservation">Status: </label>
+					<select id="editStatusReservation" name="editStatusReservation" class="form-select">
+						<option value="programado">Programado</option>
+						<option value="realizado">Realizado</option>
+						<option value="cancelado">Cancelado</option>
+					</select>
+				</div>
+				<button class="btn btn-primary createButton" type="submit" onclick="updateReservation()">Editar</button>
+				<button class="btn btn-primary cancelButton"
+					onclick="closePopup('popupReservationEdit')">Cancel</button>
+			</form>
+		</div>
+
+
+		<div class="popup" id="popupScoreCreate">
+			<div class="row justify-content-center">
+				<h2>Score</h2>
+			</div>
+			<form id="scoreCreation">
+				<div class="row justify-content-left">
+					<label class="form-label" for="createIdReservaScore">ID Reserva: </label>
+					<input type="text" id="createIdReservaScore" name="createIdReservaScore" class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createIdClientScore">Cliente: </label>
+					<input type="text" id="createIdClientScore" name="createIdClientScore" class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createIdCabinScore">Cabin: </label>
+					<input type="text" id="createIdCabinScore" name="createIdCabinScore" class="form-control">
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createScoreScore">Calificacion: </label>
+					<select id="createScoreScore" name="createScoreScore" class="form-select"></select>
+				</div>
+				<div class="row justify-content-left">
+					<label class="form-label" for="createTextScore">Mensaje: </label>
+					<input type="text" id="createTextScore" name="createTextScore" class="form-control">
+				</div>
+				<input type="text" id="createExistScore" name="createExistScore" class="form-control"
+					style="visibility: hidden; display:none;">
+
+				<button class="btn btn-primary createButton" type="submit" onclick="crearScore()">Calificar</button>
+				<button class="btn btn-primary cancelButton" onclick="closePopup('popupScoreCreate')">Cancel</button>
+			</form>
+		</div>
+
+
+
+
+
+
+
+
+		<div class="popup" id="popupAdminCreate">
+			<div class="row justify-content-center">
+				<h2>Admin</h2>
+			</div>
+			<div class="row justify-content-left">
+				<label for="createNameAdmin">Name: </label>
+				<input type="text" id="createNameAdmin" name="createNameAdmin" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="createEmailAdmin">Email: </label>
+				<input type="text" id="createEmailAdmin" name="createEmailAdmin" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="createPasswordAdmin">Password: </label>
+				<input type="text" id="createPasswordAdmin" name="createPasswordAdmin" class="form-control">
+			</div>
+			<button type="button" class="createButton" onclick="crearAdmin()">Create</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupAdminCreate')">Cancel</button>
+		</div>
+
+		<div class="popup" id="popupAdminUpdate">
+			<div class="row justify-content-center">
+				<h2>Admin</h2>
+			</div>
+			<div class="row justify-content-left">
+				<label for="updateIdAdmin">Id: </label>
+				<input type="text" id="updateIdAdmin" name="updateIdAdmin" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="updateNameAdmin">Name: </label>
+				<input type="text" id="updateNameAdmin" name="updateNameAdmin" class="form-control">
+			</div>
+			<div class="row justify-content-left" style="visibility: hidden; display:none;">
+				<label for="updateEmailAdmin">Email: </label>
+				<input type="text" id="updateEmailAdmin" name="updateEmailAdmin" class="form-control">
+			</div>
+			<div class="row justify-content-left">
+				<label for="updatePasswordAdmin">Password: </label>
+				<input type="text" id="updatePasswordAdmin" name="updatePasswordAdmin" class="form-control">
+			</div>
+			<button type="button" class="createButton" onclick="updateAdmin()">Update</button>
+			<button type="button" class="cancelButton" onclick="closePopup('popupAdminUpdate')">Cancel</button>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+			crossorigin="anonymous"></script>
+		<script src="js/app.js"></script>
+
+</body>
+
+</html>
